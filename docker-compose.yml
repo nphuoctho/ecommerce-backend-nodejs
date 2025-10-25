@@ -1,0 +1,16 @@
+services:
+  ecommerce-mongodb:
+    image: mongo:latest
+    container_name: ecommerce_mongodb
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ecommerce
+      MONGO_INITDB_ROOT_PASSWORD: ecommerce@123456
+      MONGO_INITDB_DATABASE: shopdev
+
+volumes:
+  mongodb:
