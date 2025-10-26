@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose'
+import { Document, model, Schema } from 'mongoose'
 
 const DOCUMENT_NAME = 'Shop'
 const COLLECTION_NAME = 'Shops'

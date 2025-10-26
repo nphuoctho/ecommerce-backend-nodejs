@@ -17,9 +17,18 @@ Database.getInstance()
 
 // init routes
 app.get('/', (_, res) => {
-  return res.status(200).json({
-    message: 'Welcome to API eCommerce Backend NodeJS'
-  })
+  return res.type('html').send(`
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8"/>
+        <title>eCommerce APIs</title>
+      </head>
+      <body>
+        <h1>Welcome to API eCommerce Backend NodeJS 🚀</h1>
+      </body>
+    </html>
+  `)
 })
 
 // handling error

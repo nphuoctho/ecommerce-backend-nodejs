@@ -7,9 +7,11 @@ import tseslint from 'typescript-eslint'
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    plugins: { js, prettier: eslintPluginPrettier },
-    extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser },
+    plugins: { prettier: eslintPluginPrettier },
+    languageOptions: {
+      globals: globals.node
+    },
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
@@ -27,8 +29,9 @@ export default defineConfig([
           jsxSingleQuote: true
         }
       ]
-    },
-    ignores: ['**/node_modules/', '**/dist/']
+    }
   },
-  tseslint.configs.recommended
+  {
+    ignores: ['node_modules/**', 'dist/**']
+  }
 ])
