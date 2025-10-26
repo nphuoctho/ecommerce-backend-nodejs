@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 export default class Database {
   private static instance: Database | null = null
-  private readonly mongoUri: string = process.env.MONGO_URI ?? ''
+  private readonly mongoUri: string = process.env.MONGODB_URI ?? ''
 
   constructor() {
     this.connect()
