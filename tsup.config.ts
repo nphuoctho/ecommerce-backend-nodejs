@@ -1,18 +1,16 @@
 import { defineConfig } from 'tsup'
-import tsconfigPaths from 'tsconfig-paths'
-
-tsconfigPaths.register()
+import { TsconfigPathsPlugin } from '@esbuild-plugins/tsconfig-paths'
 
 export default defineConfig({
   entry: ['src'],
   format: ['cjs'],
   outDir: 'dist',
   target: 'es2023',
-  bundle: false,
   clean: true,
   minify: true,
   sourcemap: true,
   splitting: false,
   skipNodeModulesBundle: true,
-  dts: false
+  dts: false,
+  esbuildPlugins: [TsconfigPathsPlugin({ tsconfig: './tsconfig.json' })]
 })
