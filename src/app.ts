@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import 'tsconfig-paths/register'
 import compression from 'compression'
 import express from 'express'
 import helmet from 'helmet'
