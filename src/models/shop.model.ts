@@ -1,23 +1,24 @@
+import { RoleShop } from '@/types/auth.types'
 import { Document, model, Schema } from 'mongoose'
 
 const DOCUMENT_NAME = 'Shop'
 const COLLECTION_NAME = 'Shops'
 
-enum IShopStatus {
+enum ShopStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive'
 }
 
-interface IShop extends Document {
+interface ShopDocument extends Document {
   name: string
   email: string
   password: string
-  status: IShopStatus | string
+  status: ShopStatus | string
   verify: boolean
-  roles: string[]
+  roles: RoleShop[]
 }
 
-const shopSchema = new Schema<IShop>(
+const shopSchema = new Schema<ShopDocument>(
   {
     name: {
       type: String,
@@ -44,7 +45,8 @@ const shopSchema = new Schema<IShop>(
     },
     roles: {
       type: [String],
-      default: []
+      enum: Object.values(RoleShop),
+      default: [RoleShop.SHOP]
     }
   },
   {
@@ -53,6 +55,6 @@ const shopSchema = new Schema<IShop>(
   }
 )
 
-const ShopModel = model<IShop>(DOCUMENT_NAME, shopSchema)
+const shopModel = model<ShopDocument>(DOCUMENT_NAME, shopSchema)
 
-export default ShopModel
+export default shopModel

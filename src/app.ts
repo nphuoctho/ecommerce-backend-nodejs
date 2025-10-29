@@ -5,6 +5,7 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import Database from './database/init.mongodb'
+import router from './routes'
 
 const app = express()
 
@@ -12,25 +13,18 @@ const app = express()
 app.use(morgan('dev'))
 app.use(helmet())
 app.use(compression())
+app.use(express.json())
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+)
 
 // init db
 Database.getInstance()
 
 // init routes
-app.get('/', (_, res) => {
-  return res.type('html').send(`
-    <!doctype html>
-    <html>
-      <head>
-        <meta charset="utf-8"/>
-        <title>eCommerce APIs</title>
-      </head>
-      <body>
-        <h1>Welcome to API eCommerce Backend NodeJS 🚀</h1>
-      </body>
-    </html>
-  `)
-})
+app.use('/', router)
 
 // handling error
 
