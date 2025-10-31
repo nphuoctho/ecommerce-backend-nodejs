@@ -1,16 +1,13 @@
-import { KeyObject } from 'crypto'
 import jwt from 'jsonwebtoken'
 
-const createTokenPair = async (payload: string | Buffer | object, publicKey: KeyObject, privateKey: string) => {
+const createTokenPair = async (payload: string | Buffer | object, publicKey: string, privateKey: string) => {
   try {
     // Access Token
-    const accessToken = await jwt.sign(payload, privateKey, {
-      algorithm: 'RS256',
+    const accessToken = await jwt.sign(payload, publicKey, {
       expiresIn: '2 days'
     })
 
     const refreshToken = await jwt.sign(payload, privateKey, {
-      algorithm: 'RS256',
       expiresIn: '7 days'
     })
 

@@ -1,13 +1,23 @@
 import keyTokenModel from '@/models/keyToken.model'
 
 class KeyTokenService {
-  static createKeyToken = async ({ userId, publicKey }: { userId: string; publicKey: string }) => {
+  static createKeyToken = async ({
+    userId,
+    publicKey,
+    privateKey
+  }: {
+    userId: string
+    publicKey: string
+    privateKey: string
+  }) => {
     try {
-      const publicKeyString = publicKey.toString()
+      const tokens = await keyTokenModel.create({
+        user: userId,
+        publicKey,
+        privateKey
+      })
 
-      const tokens = await keyTokenModel.create({ user: userId, publicKey: publicKeyString })
-
-      return tokens ? publicKeyString : null
+      return tokens ? tokens.publicKey : null
     } catch (error) {
       console.log('🚀 ~ KeyTokenService ~ error:', error)
 
