@@ -23,32 +23,22 @@ class AccessService {
 
       if (newShop) {
         // Create privateKey and publicKey
-        const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-          modulusLength: 4096,
-          publicKeyEncoding: {
-            type: 'pkcs1',
-            format: 'pem'
-          },
-          privateKeyEncoding: {
-            type: 'pkcs1',
-            format: 'pem'
-          }
-        })
+        const publicKey = crypto.randomBytes(64).toString('hex')
+        const privateKey = crypto.randomBytes(64).toString('hex')
 
-        const publicKeyString = await KeyTokenService.createKeyToken({
+        const publicKeyStore = await KeyTokenService.createKeyToken({
           userId: newShop._id as string,
-          publicKey
+          publicKey,
+          privateKey
         })
 
-        if (!publicKeyString)
+        if (!publicKeyStore)
           return {
             code: 400,
             message: 'Public key string error'
           }
 
-        const publicKeyObject = crypto.createPublicKey(publicKey)
-
-        const tokens = await createTokenPair({ userId: newShop._id, email }, publicKeyObject, privateKey)
+        const tokens = await createTokenPair({ userId: newShop._id, email }, publicKeyStore, privateKey)
 
         return {
           code: 201,

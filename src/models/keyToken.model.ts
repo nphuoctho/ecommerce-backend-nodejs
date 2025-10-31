@@ -6,6 +6,7 @@ const COLLECTION_NAME = 'Keys'
 export interface KeyTokenDocument extends Document {
   user: Schema.Types.ObjectId
   publicKey: string
+  privateKey: string
   refreshToken: string[]
 }
 
@@ -19,6 +20,10 @@ const keyTokenSchema = new Schema<KeyTokenDocument>(
     publicKey: {
       type: String,
       require: true
+    },
+    privateKey: {
+      type: String,
+      required: true
     },
     refreshToken: {
       type: [String],
