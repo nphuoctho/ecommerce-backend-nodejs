@@ -1,3 +1,8 @@
+export enum Header {
+  API_KEY = 'x-api-key',
+  AUTHORIZATION = 'authorization'
+}
+
 export enum RoleShop {
   SHOP = 'SHOP',
   WITTER = 'WITTER',
